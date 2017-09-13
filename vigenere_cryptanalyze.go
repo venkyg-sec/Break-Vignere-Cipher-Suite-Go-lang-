@@ -128,7 +128,7 @@ func vigenere_cryptanalyze(ciphertext string, predicted_key_length int) {
 
     for i := 0; (i + predicted_key_length) < ciphertext_length ; i = i +
     predicted_key_length {
-    
+
       s[j] += string(ciphertext[i + j])
     }
   }
@@ -172,6 +172,59 @@ func vigenere_cryptanalyze(ciphertext string, predicted_key_length int) {
     }
 
   }
-  fmt.Println(frequency_match)
+  // TODO Remove print statements
+  //fmt.Println(frequency_match)
 
+  var max_values []float64
+  max_values = make([]float64, predicted_key_length, predicted_key_length)
+
+  var index []int
+  index = make([]int, predicted_key_length, predicted_key_length)
+
+  for i := 0; i < predicted_key_length; i++ {
+    max_values[i] = findMaximum(frequency_match[i])
+    index[i] = findIndexFloat(frequency_match[i],max_values[i])
+  }
+
+  // TODO Remove print statements
+  fmt.Println("The maximum values are ", max_values)
+  fmt.Println(" Corresponding indices are ", index)
+
+  // Call the function to convert the key representation from numeric to string
+  indexToKeyString(index)
+}
+
+/* Function to find the maximum value in the frequency array */
+
+func findMaximum(individual_character_array []float64) (float64) {
+
+  var sorted_counter []float64
+  sorted_counter = make([]float64, 26, 26)
+  for i := 0; i < 26; i++ {
+    sorted_counter[i] = individual_character_array[i]
+  }
+  sort.Float64s(sorted_counter)
+  // Sorting and returning the last value
+  return sorted_counter[25]
+
+}
+
+func findIndexFloat(individual_character_array []float64, maximum_value float64)(int) {
+  i := 0
+  for i = 0; i < 26; i++ {
+    if(individual_character_array[i] == maximum_value) {
+      return i
+    }
+  }
+  return i
+}
+
+func indexToKeyString(index []int) {
+
+  fmt.Println("Printing the key")
+  index_length := len(index)
+  for i := 0; i < index_length; i++ {
+    fmt.Printf("%s", string(index[i] + 65))
+  }
+  fmt.Println("\n")
 }
