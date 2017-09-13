@@ -74,7 +74,8 @@ func FindKeyLength(str string) (int) {
   //fmt.Println(sorted_counter)
 
   // Maintain the indices which have the maximum value
-  var index [4]int
+  var index []int
+  index = make([]int, 4,4)
   for i:=0; i < 4; i++ {
     index[i] = findIndex(counter, counter_length, sorted_counter[counter_length -(i + 1)])
 }
@@ -82,6 +83,13 @@ func FindKeyLength(str string) (int) {
   gcd_1 := gcd(index[0], index[1])
   gcd_2 := gcd(index[2], index[3])
   predicted_key_length := gcd(gcd_1, gcd_2)
+
+  if predicted_key_length == 1 {
+
+    sort.Ints(index)
+    predicted_key_length = index[0] + 1
+  }
+  
   return predicted_key_length
 
 }
