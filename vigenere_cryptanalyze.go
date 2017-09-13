@@ -128,7 +128,7 @@ func vigenere_cryptanalyze(ciphertext string, predicted_key_length int) {
 
     for i := 0; (i + predicted_key_length) < ciphertext_length ; i = i +
     predicted_key_length {
-      fmt.Println(" I is ", i, " J is ", j, " and i+j is ", i+j)
+    
       s[j] += string(ciphertext[i + j])
     }
   }
