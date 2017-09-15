@@ -87,9 +87,13 @@ func FindKeyLength(str string) (int) {
   if predicted_key_length == 1 {
 
     sort.Ints(index)
-    predicted_key_length = index[0] + 1
+    predicted_key_length = index[0]
+
+    if index[0] == 1 {
+      predicted_key_length = index[1]
+    }
   }
-  
+
   return predicted_key_length
 
 }
@@ -194,9 +198,7 @@ func vigenere_cryptanalyze(ciphertext string, predicted_key_length int) {
     index[i] = findIndexFloat(frequency_match[i],max_values[i])
   }
 
-  // TODO Remove print statements
-  fmt.Println("The maximum values are ", max_values)
-  fmt.Println(" Corresponding indices are ", index)
+
 
   // Call the function to convert the key representation from numeric to string
   indexToKeyString(index)

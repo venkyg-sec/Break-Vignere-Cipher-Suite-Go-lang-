@@ -85,7 +85,11 @@ func FindKeyLength(str string) {
   if predicted_key_length == 1 {
 
     sort.Ints(index)
-    predicted_key_length = index[0] + 1
+    predicted_key_length = index[0] 
+
+    if index[0] == 1 {
+      predicted_key_length = index[1]
+    }
   }
   fmt.Println( " Predicted key lenth is ", predicted_key_length)
 }
